@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            margin-top: 80px;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, button {
+            padding: 8px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🎮 Number Guessing Game</h2>
+
+    <select id="difficulty">
+        <option value="50">Easy (1-50)</option>
+        <option value="100">Medium (1-100)</option>
+        <option value="200">Hard (1-200)</option>
+    </select>
+
+    <br>
+
+    <input type="number" id="guess" placeholder="Enter your guess">
+    <br>
+    <button onclick="checkGuess()">Guess</button>
+
+    <p id="message"></p>
+    <p id="attempts"></p>
+    <p id="score"></p>
+
+    <button onclick="startGame()">Restart</button>
+</div>
+
+<script>
+
+let number;
+let attempts;
+let score;
+
+function startGame() {
+    let max = document.getElementById("difficulty").value;
+    number = Math.floor(Math.random() * max) + 1;
+    attempts = 7;
+    score = 100;
+
+    document.getElementById("message").innerHTML = "Game Started!";
+    document.getElementById("attempts").innerHTML = "Attempts left: " + attempts;
+    document.getElementById("score").innerHTML = "Score: " + score;
+}
+
+function checkGuess() {
+    let guess = document.getElementById("guess").value;
+
+    if (attempts <= 0) {
+        document.getElementById("message").innerHTML = "Game Over! Restart.";
+        return;
+    }
+
+    attempts--;
+    score -= 10;
+
+    if (guess == number) {
+        document.getElementById("message").innerHTML = "🎉 You Win!";
+    } else if (guess > number) {
+        document.getElementById("message").innerHTML = "Too High!";
+    } else {
+        document.getElementById("message").innerHTML = "Too Low!";
+    }
+
+    document.getElementById("attempts").innerHTML = "Attempts left: " + attempts;
+    document.getElementById("score").innerHTML = "Score: " + score;
+}
+
+startGame();
+
+</script>
+
+</body>
+</html>
